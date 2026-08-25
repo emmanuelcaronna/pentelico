@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pezzo | Pentelico</title>
+<meta name="description" content="Scheda del pezzo: soggetto, misure, finiture disponibili e minuteria.">
+<link rel="canonical" href="https://www.pentelico.it/prodotto.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Pentelico">
+<meta property="og:title" content="Pezzo | Pentelico">
+<meta property="og:description" content="Scheda del pezzo: soggetto, misure, finiture disponibili e minuteria.">
+<meta name="theme-color" content="#EDEDEA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131514" media="(prefers-color-scheme: dark)">
+<link rel="preload" href="assets/fonts/bodoni-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="salta" href="#contenuto">Salta al contenuto</a>
+<header class="barra">
+  <div class="wrap">
+    <a class="marchio" href="index.html">PENTELICO</a>
+    <nav aria-label="Navigazione principale">
+      <button class="apri-menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu">
+        <!-- icona: Phosphor Icons, MIT -->
+        <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"/></svg>
+      </button>
+      <ul class="menu" id="menu">
+        <li><a href="collezione.html" aria-current="page">Collezione</a></li>
+        <li><a href="configuratore.html">Configuratore</a></li>
+        <li><a href="maison.html">Maison</a></li>
+        <li><a href="index.html#iscrizione">Contatti</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenuto" class="wrap">
+  <div class="scheda" id="scheda" hidden>
+    <div class="scheda-vista">
+      <div id="vista"></div>
+    </div>
+
+    <div>
+      <p class="occhiello" id="repertorio"></p>
+      <h1 class="display" id="nome" style="margin-top:1rem"></h1>
+      <p class="soggetto" id="soggetto"></p>
+      <p class="prezzo" id="prezzo"></p>
+      <p class="prosa" id="testo"></p>
+
+      <div class="scelta">
+        <div class="etichetta"><span>Finitura</span><span class="scelto" id="nome-finitura"></span></div>
+        <div class="gruppo" id="finiture"></div>
+      </div>
+
+      <div class="scelta">
+        <div class="etichetta"><span>Minuteria</span><span class="scelto" id="nome-minuteria"></span></div>
+        <div class="gruppo" id="minuterie"></div>
+      </div>
+
+      <div class="azioni" style="margin-top:2.5rem">
+        <a class="btn btn-pieno btn-largo" id="richiedi" href="#">Richiedi il pezzo</a>
+      </div>
+
+      <ul class="dettagli" id="dettagli"></ul>
+    </div>
+  </div>
+
+  <div class="centrata" id="assente" hidden>
+    <h1 class="display">Il pezzo non c'è.</h1>
+    <p class="prosa" style="margin-inline:auto">Forse è uscito di collezione, o l'indirizzo è incompleto.</p>
+    <div class="azioni"><a class="btn btn-pieno" href="collezione.html">La collezione</a></div>
+  </div>
+</main>
+<footer class="piede">
+  <div class="wrap">
+    <div class="piede-griglia">
+      <div>
+        <a class="marchio" href="index.html">PENTELICO</a>
+        <p class="prosa">Borse e gioielli scolpiti in serie limitata. Partinico, Sicilia.</p>
+      </div>
+      <div>
+        <h3>Collezione</h3>
+        <ul>
+          <li><a href="collezione.html?tipo=borsa">Borse</a></li>
+          <li><a href="collezione.html?tipo=gioiello">Gioielli</a></li>
+          <li><a href="collezione.html?rep=classico">Repertorio classico</a></li>
+          <li><a href="collezione.html?rep=siciliano">Repertorio siciliano</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Casa</h3>
+        <ul>
+          <li><a href="maison.html">La maison</a></li>
+          <li><a href="configuratore.html">Configuratore</a></li>
+          <li><a href="index.html#finiture">Le finiture</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Servizio</h3>
+        <ul>
+          <li><a href="mailto:clienti@pentelico.it">clienti@pentelico.it</a></li>
+          <li><a href="legale.html">Note legali</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- TODO prima del lancio: ragione sociale e partita IVA su questa riga. -->
+    <div class="coda">
+      <span>&copy; 2026 Pentelico</span>
+      <span>Made in Italy</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/catalogo.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script>
+(function () {
+  var C = window.PENTELICO, esc = window.PENTELICO_ESC;
+  var id = new URLSearchParams(location.search).get('id');
+  var p = id && C.trova(id);
+
+  if (!p) { document.getElementById('assente').hidden = false; return; }
+  document.getElementById('scheda').hidden = false;
+
+  var stato = { fin: p.tipo === 'borsa' ? 'statuario' : 'antico', min: 'acciaio' };
+
+  document.title = p.nome + ' | Pentelico';
+  document.getElementById('repertorio').textContent = 'Repertorio ' + p.repertorio;
+  document.getElementById('nome').textContent = p.nome;
+  document.getElementById('soggetto').textContent = p.soggetto;
+  document.getElementById('testo').textContent = p.testo;
+
+  var finiture = document.getElementById('finiture');
+  var minuterie = document.getElementById('minuterie');
+
+  finiture.innerHTML = C.finiture.map(function (f) {
+    return '<button class="pastiglia campione" type="button" data-fin="' + f.id + '" aria-pressed="false">' +
+      '<i style="background:' + f.pietra + '"></i>' + esc(f.nome) + '</button>';
+  }).join('');
+
+  minuterie.innerHTML = C.minuterie.map(function (m) {
+    return '<button class="pastiglia" type="button" data-min="' + m.id + '" aria-pressed="false">' +
+      esc(m.nome) + (m.delta ? ' <span style="opacity:.6">+' + m.delta + ' €</span>' : '') + '</button>';
+  }).join('');
+
+  function totale() { return p.prezzo + C.minuteria(stato.min).delta; }
+
+  function disegna() {
+    var f = C.finitura(stato.fin), m = C.minuteria(stato.min);
+    document.getElementById('vista').innerHTML = window.PENTELICO_LASTRA(f.id, p.nome);
+    document.getElementById('prezzo').textContent = C.euro(totale());
+    document.getElementById('nome-finitura').textContent = f.nome;
+    document.getElementById('nome-minuteria').textContent = m.nome;
+
+    Array.prototype.forEach.call(finiture.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.fin === stato.fin)); });
+    Array.prototype.forEach.call(minuterie.children, function (b) {
+      b.setAttribute('aria-pressed', String(b.dataset.min === stato.min)); });
+
+    document.getElementById('dettagli').innerHTML = [
+      ['Soggetto', p.soggetto],
+      ['Misure', p.misure],
+      ['Peso', p.peso],
+      ['Materiale', 'PETG opaco, finitura ' + f.nome.toLowerCase()],
+      ['Minuteria', m.nome + ', nichel free'],
+      ['Produzione', 'Stampa in serie limitata, finitura a mano']
+    ].map(function (r) {
+      return '<li><span class="voce">' + esc(r[0]) + '</span><span class="valore">' + esc(r[1]) + '</span></li>';
+    }).join('');
+
+    var corpo = 'Vorrei ordinare questo pezzo.\n\n' +
+      'Pezzo: ' + p.nome + '\nSoggetto: ' + p.soggetto + '\nFinitura: ' + f.nome +
+      '\nMinuteria: ' + m.nome + '\nPrezzo: ' + C.euro(totale()) + '\n';
+    document.getElementById('richiedi').href = 'mailto:' + window.PENTELICO_EMAIL +
+      '?subject=' + encodeURIComponent('Ordine ' + p.nome) + '&body=' + encodeURIComponent(corpo);
+  }
+
+  finiture.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-fin]'); if (!b) return;
+    stato.fin = b.dataset.fin; disegna();
+  });
+  minuterie.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-min]'); if (!b) return;
+    stato.min = b.dataset.min; disegna();
+  });
+
+  disegna();
+})();
+</script>
+</body>
+</html>

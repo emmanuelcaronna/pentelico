@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<script>document.documentElement.classList.add('js');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Collezione | Pentelico</title>
+<meta name="description" content="Undici pezzi scolpiti: borse e gioielli dal repertorio classico e siciliano, in quattro finiture.">
+<link rel="canonical" href="https://www.pentelico.it/collezione.html">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="Pentelico">
+<meta property="og:title" content="Collezione | Pentelico">
+<meta property="og:description" content="Undici pezzi scolpiti: borse e gioielli dal repertorio classico e siciliano, in quattro finiture.">
+<meta name="theme-color" content="#EDEDEA" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131514" media="(prefers-color-scheme: dark)">
+<link rel="preload" href="assets/fonts/bodoni-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<a class="salta" href="#contenuto">Salta al contenuto</a>
+<header class="barra">
+  <div class="wrap">
+    <a class="marchio" href="index.html">PENTELICO</a>
+    <nav aria-label="Navigazione principale">
+      <button class="apri-menu" type="button" aria-expanded="false" aria-controls="menu" aria-label="Apri il menu">
+        <!-- icona: Phosphor Icons, MIT -->
+        <svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M228,128a12,12,0,0,1-12,12H40a12,12,0,0,1,0-24H216A12,12,0,0,1,228,128ZM40,76H216a12,12,0,0,0,0-24H40a12,12,0,0,0,0,24ZM216,180H40a12,12,0,0,0,0,24H216a12,12,0,0,0,0-24Z"/></svg>
+      </button>
+      <ul class="menu" id="menu">
+        <li><a href="collezione.html" aria-current="page">Collezione</a></li>
+        <li><a href="configuratore.html">Configuratore</a></li>
+        <li><a href="maison.html">Maison</a></li>
+        <li><a href="index.html#iscrizione">Contatti</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="contenuto" class="bay">
+  <div class="wrap">
+    <h1 class="display">Collezione</h1>
+    <p class="prosa grande" style="margin-top:1.25rem">Serie limitata. Ogni pezzo si ordina nella finitura e nella minuteria che preferisci.</p>
+
+    <div class="filtri">
+      <button class="filtro" type="button" data-gruppo="tipo" data-valore="tutti"    aria-pressed="true">Tutto</button>
+      <button class="filtro" type="button" data-gruppo="tipo" data-valore="borsa"    aria-pressed="false">Borse</button>
+      <button class="filtro" type="button" data-gruppo="tipo" data-valore="gioiello" aria-pressed="false">Gioielli</button>
+      <span style="flex:1"></span>
+      <button class="filtro" type="button" data-gruppo="rep" data-valore="tutti"     aria-pressed="true">Ogni repertorio</button>
+      <button class="filtro" type="button" data-gruppo="rep" data-valore="classico"  aria-pressed="false">Classico</button>
+      <button class="filtro" type="button" data-gruppo="rep" data-valore="siciliano" aria-pressed="false">Siciliano</button>
+    </div>
+
+    <p class="conteggio" id="conteggio" role="status"></p>
+    <div class="pezzi" id="griglia"></div>
+    <p class="vuoto" id="vuoto" hidden>Nessun pezzo con questi due filtri insieme.</p>
+  </div>
+</main>
+<footer class="piede">
+  <div class="wrap">
+    <div class="piede-griglia">
+      <div>
+        <a class="marchio" href="index.html">PENTELICO</a>
+        <p class="prosa">Borse e gioielli scolpiti in serie limitata. Partinico, Sicilia.</p>
+      </div>
+      <div>
+        <h3>Collezione</h3>
+        <ul>
+          <li><a href="collezione.html?tipo=borsa">Borse</a></li>
+          <li><a href="collezione.html?tipo=gioiello">Gioielli</a></li>
+          <li><a href="collezione.html?rep=classico">Repertorio classico</a></li>
+          <li><a href="collezione.html?rep=siciliano">Repertorio siciliano</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Casa</h3>
+        <ul>
+          <li><a href="maison.html">La maison</a></li>
+          <li><a href="configuratore.html">Configuratore</a></li>
+          <li><a href="index.html#finiture">Le finiture</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Servizio</h3>
+        <ul>
+          <li><a href="mailto:clienti@pentelico.it">clienti@pentelico.it</a></li>
+          <li><a href="legale.html">Note legali</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- TODO prima del lancio: ragione sociale e partita IVA su questa riga. -->
+    <div class="coda">
+      <span>&copy; 2026 Pentelico</span>
+      <span>Made in Italy</span>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/catalogo.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+<script>
+(function () {
+  var C = window.PENTELICO;
+  var q = new URLSearchParams(location.search);
+  var stato = { tipo: q.get('tipo') || 'tutti', rep: q.get('rep') || 'tutti' };
+
+  var griglia = document.getElementById('griglia');
+  var conteggio = document.getElementById('conteggio');
+  var vuoto = document.getElementById('vuoto');
+  var bottoni = Array.prototype.slice.call(document.querySelectorAll('.filtro'));
+
+  function disegna() {
+    var lista = C.prodotti.filter(function (p) {
+      return (stato.tipo === 'tutti' || p.tipo === stato.tipo) &&
+             (stato.rep  === 'tutti' || p.repertorio === stato.rep);
+    });
+    griglia.innerHTML = lista.map(window.PENTELICO_PEZZO).join('');
+    vuoto.hidden = lista.length > 0;
+    conteggio.textContent = lista.length === 0 ? '' :
+      lista.length + (lista.length === 1 ? ' pezzo' : ' pezzi');
+    bottoni.forEach(function (b) {
+      b.setAttribute('aria-pressed', String(stato[b.dataset.gruppo] === b.dataset.valore));
+    });
+    window.PENTELICO_OSSERVA(griglia);
+  }
+
+  bottoni.forEach(function (b) {
+    b.addEventListener('click', function () {
+      stato[b.dataset.gruppo] = b.dataset.valore;
+      var p = new URLSearchParams();
+      if (stato.tipo !== 'tutti') p.set('tipo', stato.tipo);
+      if (stato.rep  !== 'tutti') p.set('rep', stato.rep);
+      history.replaceState(null, '', p.toString() ? '?' + p : location.pathname);
+      disegna();
+    });
+  });
+
+  disegna();
+})();
+</script>
+</body>
+</html>

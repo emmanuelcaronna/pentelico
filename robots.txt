@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# PRIMA DEL LANCIO: sostituire con "Allow: /" e togliere i meta robots dalle pagine.
+Sitemap: https://www.pentelico.it/sitemap.xml
