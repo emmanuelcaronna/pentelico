@@ -37,11 +37,43 @@
     });
   }
 
-  /* ---------- comparsa allo scorrimento ----------
-     Motivo: le sezioni entrano in sequenza per dare gerarchia alla lettura. */
+  /* ---------- movimento ----------
+     1. le fotografie si scoprono a tendina, come un velo tolto da una scultura
+     2. i titoli salgono da sotto una linea di taglio, parola per parola
+     3. i blocchi salgono in sequenza, per dare ordine di lettura
+     IntersectionObserver, mai un ascoltatore di scroll. */
   var pigro = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* i titoli si spezzano in parole: ognuna e' una maschera che si alza */
+  function spezza(radice) {
+    if (pigro.matches) return;
+    var titoli = (radice || document).querySelectorAll('h1.display:not([data-spezzato]), h2.display:not([data-spezzato])');
+    Array.prototype.forEach.call(titoli, function (h) {
+      h.setAttribute('data-spezzato', '1');
+      var frammenti = [];
+      Array.prototype.forEach.call(h.childNodes, function (n) {
+        if (n.nodeType === 3) {
+          n.textContent.split(/(\s+)/).forEach(function (t) {
+            if (!t.trim()) { frammenti.push(document.createTextNode(t)); return; }
+            var w = document.createElement('span'); w.className = 'parola';
+            var s = document.createElement('span'); s.textContent = t;
+            w.appendChild(s); frammenti.push(w);
+          });
+        } else { frammenti.push(n.cloneNode(true)); }
+      });
+      h.textContent = '';
+      frammenti.forEach(function (f) { h.appendChild(f); });
+      var i = 0;
+      Array.prototype.forEach.call(h.querySelectorAll('.parola'), function (w) {
+        w.style.setProperty('--p', i++);
+      });
+    });
+  }
+
   function osserva(radice) {
-    var nodi = (radice || document).querySelectorAll('.comparsa:not(.vista)');
+    var r = radice || document;
+    spezza(r);
+    var nodi = r.querySelectorAll('.comparsa:not(.vista), .telaio:not(.vista), .rep:not(.vista), h1.display:not(.vista), h2.display:not(.vista)');
     if (!('IntersectionObserver' in window) || pigro.matches) {
       Array.prototype.forEach.call(nodi, function (n) { n.classList.add('vista'); });
       return;
@@ -50,11 +82,34 @@
       voci.forEach(function (v) {
         if (v.isIntersecting) { v.target.classList.add('vista'); o.unobserve(v.target); }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    Array.prototype.forEach.call(nodi, function (n) { o.observe(n); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -5% 0px' });
+
+    /* Cio' che e' gia' in schermo si scopre subito, senza aspettare l'osservatore:
+       l'apertura non deve mai restare coperta se l'osservatore tarda o non parte. */
+    Array.prototype.forEach.call(nodi, function (n) {
+      var r = n.getBoundingClientRect();
+      if (r.top < (window.innerHeight || 0) && r.bottom > 0) {
+        requestAnimationFrame(function () { n.classList.add('vista'); });
+      } else {
+        o.observe(n);
+      }
+    });
   }
   window.PENTELICO_OSSERVA = osserva;
   osserva(document);
+
+  /* la barra si stringe quando la pagina si stacca dall'alto.
+     Una sentinella invisibile, non un ascoltatore di scroll. */
+  (function () {
+    var barra = document.querySelector('.barra');
+    if (!barra || !('IntersectionObserver' in window)) return;
+    var sentinella = document.createElement('div');
+    sentinella.style.cssText = 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none';
+    document.body.prepend(sentinella);
+    new IntersectionObserver(function (v) {
+      barra.classList.toggle('staccata', !v[0].isIntersecting);
+    }, { threshold: 0 }).observe(sentinella);
+  })();
 
   /* ---------- pezzi: la lastra e la scheda breve ---------- */
   var C = window.PENTELICO;
@@ -71,7 +126,7 @@
   };
 
   window.PENTELICO_PEZZO = function (p, i) {
-    var fin = p.tipo === 'borsa' ? 'statuario' : 'antico';
+    var fin = p.finitura || (p.tipo === 'borsa' ? 'statuario' : 'antico');
     return '<a class="pezzo comparsa" style="--i:' + (i % 4) + '" href="prodotto.html?id=' + encodeURIComponent(p.id) + '">' +
       window.PENTELICO_LASTRA(fin, p.nome) +
       '<div class="pezzo-dati"><span class="pezzo-nome">' + esc(p.nome) + '</span>' +

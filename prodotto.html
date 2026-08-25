@@ -13,8 +13,7 @@
 <meta property="og:site_name" content="Pentelico">
 <meta property="og:title" content="Pezzo | Pentelico">
 <meta property="og:description" content="Scheda del pezzo: soggetto, misure, finiture disponibili e minuteria.">
-<meta name="theme-color" content="#EDEDEA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131514" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F2EA">
 <link rel="preload" href="assets/fonts/bodoni-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
@@ -119,6 +118,9 @@
 <script src="assets/js/catalogo.js" defer></script>
 <script src="assets/js/site.js" defer></script>
 <script>
+/* Gli script di pagina devono girare DOPO catalogo.js e site.js, che sono defer.
+   Se il catalogo c'e' gia' (anteprima) si parte subito, altrimenti si aspetta il DOM. */
+(function __avvia(f) { if (window.PENTELICO) { f(); } else { document.addEventListener('DOMContentLoaded', f); } })(function () {
 (function () {
   var C = window.PENTELICO, esc = window.PENTELICO_ESC;
   var id = new URLSearchParams(location.search).get('id');
@@ -127,7 +129,7 @@
   if (!p) { document.getElementById('assente').hidden = false; return; }
   document.getElementById('scheda').hidden = false;
 
-  var stato = { fin: p.tipo === 'borsa' ? 'statuario' : 'antico', min: 'acciaio' };
+  var stato = { fin: p.finitura || (p.tipo === 'borsa' ? 'statuario' : 'antico'), min: 'acciaio' };
 
   document.title = p.nome + ' | Pentelico';
   document.getElementById('repertorio').textContent = 'Repertorio ' + p.repertorio;
@@ -191,6 +193,7 @@
 
   disegna();
 })();
+});
 </script>
 </body>
 </html>

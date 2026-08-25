@@ -13,8 +13,7 @@
 <meta property="og:site_name" content="Pentelico">
 <meta property="og:title" content="Configuratore | Pentelico">
 <meta property="og:description" content="Componi il pezzo: modello, motivo, finitura, minuteria e monogramma inciso.">
-<meta name="theme-color" content="#EDEDEA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131514" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F2EA">
 <link rel="preload" href="assets/fonts/bodoni-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
@@ -128,6 +127,9 @@
 <script src="assets/js/catalogo.js" defer></script>
 <script src="assets/js/site.js" defer></script>
 <script>
+/* Gli script di pagina devono girare DOPO catalogo.js e site.js, che sono defer.
+   Se il catalogo c'e' gia' (anteprima) si parte subito, altrimenti si aspetta il DOM. */
+(function __avvia(f) { if (window.PENTELICO) { f(); } else { document.addEventListener('DOMContentLoaded', f); } })(function () {
 (function () {
   var C = window.PENTELICO, esc = window.PENTELICO_ESC;
   var stato = { pezzo: C.prodotti[0].id, fin: 'statuario', min: 'acciaio', incide: false, lettere: '' };
@@ -223,6 +225,7 @@
 
   disegna();
 })();
+});
 </script>
 </body>
 </html>

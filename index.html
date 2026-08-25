@@ -13,8 +13,7 @@
 <meta property="og:site_name" content="Pentelico">
 <meta property="og:title" content="Pentelico | Bassorilievi da portare">
 <meta property="og:description" content="Borse e gioielli scolpiti dal repertorio classico e siciliano. Serie limitata, finiture in marmo, minuteria in acciaio 316L.">
-<meta name="theme-color" content="#EDEDEA" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#131514" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F2EA">
 <link rel="preload" href="assets/fonts/bodoni-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/archivo-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
@@ -45,15 +44,16 @@
   <section class="apertura">
     <div class="wrap apertura-griglia">
       <div class="comparsa">
+        <p class="occhiello">Serie limitata</p>
         <h1 class="display">Bassorilievi<br>da portare.</h1>
         <p class="prosa grande">Borse e gioielli scolpiti dal repertorio classico e siciliano. Ogni pezzo è finito a mano, uno alla volta.</p>
         <div class="azioni">
           <a class="btn btn-pieno" href="collezione.html">La collezione</a>
         </div>
       </div>
-      <figure class="comparsa" style="--i:1">
-        <img src="assets/img/menade.jpg" width="910" height="1500" fetchpriority="high"
-             alt="Rilievo in marmo con una menade danzante, arte romana del I secolo, dal repertorio da cui nascono i motivi.">
+      <figure style="--i:1">
+        <div class="telaio"><img src="assets/img/menade.jpg" width="910" height="1500" fetchpriority="high"
+             alt="Rilievo in marmo con una menade danzante, arte romana del I secolo, dal repertorio da cui nascono i motivi."></div>
       </figure>
     </div>
   </section>
@@ -65,6 +65,22 @@
         <a class="altro" href="collezione.html">Tutti gli undici pezzi</a>
       </div>
       <div class="pezzi" id="evidenza"></div>
+    </div>
+  </section>
+
+
+  <section class="servizio">
+    <div class="comparsa">
+      <h3>Serie numerata</h3>
+      <p>Ogni pezzo porta il suo numero inciso sul fondo.</p>
+    </div>
+    <div class="comparsa" style="--i:1">
+      <h3>Finito a mano</h3>
+      <p>Fondo, patina e pennello asciutto, pezzo per pezzo.</p>
+    </div>
+    <div class="comparsa" style="--i:2">
+      <h3>Minuteria nichel free</h3>
+      <p>Acciaio inox 316L di serie, titanio su richiesta.</p>
     </div>
   </section>
 
@@ -179,6 +195,9 @@
 <script src="assets/js/catalogo.js" defer></script>
 <script src="assets/js/site.js" defer></script>
 <script>
+/* Gli script di pagina devono girare DOPO catalogo.js e site.js, che sono defer.
+   Se il catalogo c'e' gia' (anteprima) si parte subito, altrimenti si aspetta il DOM. */
+(function __avvia(f) { if (window.PENTELICO) { f(); } else { document.addEventListener('DOMContentLoaded', f); } })(function () {
 (function () {
   var C = window.PENTELICO;
   document.getElementById('evidenza').innerHTML =
@@ -192,6 +211,7 @@
   }).join('');
   window.PENTELICO_OSSERVA(document);
 })();
+});
 </script>
 </body>
 </html>
